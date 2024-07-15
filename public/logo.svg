@@ -3,14 +3,14 @@
 <path d="M265.19 33V28.644H269.326V33H265.19Z" fill="#F13024"/>
 </svg> -->
 
-<svg width="400" height="100" xmlns="http://www.w3.org/2000/svg">
+<svg width="300" height="100" xmlns="http://www.w3.org/2000/svg">
     <style>
        
         .bold { font-family: 'Sora', sans-serif; font-weight: 900; fill: white; }
         .normal { font-family: 'Sora', sans-serif; font-weight: 50 ; fill: white; }
         .dot { font-family: 'Sora', sans-serif; font-weight: 400; fill: red; }
     </style>
-    <text x="10" y="60" class="bold" font-size="40">shubham</text>
-    <text x="210" y="60" class="normal" font-size="40">patel</text>
-    <text x="295" y="60" class="dot" font-size="40">.</text>
+    <text x="0" y="60" class="bold" font-size="40">shubham</text>
+    <text x="190" y="60" class="normal" font-size="40">patel</text>
+    <text x="280" y="60" class="dot" font-size="40">.</text>
 </svg>
