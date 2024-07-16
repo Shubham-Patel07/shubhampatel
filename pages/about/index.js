@@ -119,11 +119,12 @@ const About = () => {
       <div className="container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6">
         {/* text */}
         <div className="flex-1 flex flex-col justify-center">
-          <motion.h2 
+          <motion.h2
             variants={fadeIn("right", 0.2)}
             initial="hidden"
             animate="show"
-            className="h2">
+            className="h2"
+          >
             Robust <span className="text-accent">Code</span> forms the backbone
             of innovation.
           </motion.h2>
@@ -131,7 +132,8 @@ const About = () => {
             variants={fadeIn("right", 0.4)}
             initial="hidden"
             animate="show"
-            className="max-w-[500px] mx-auto xl:mx-0 mb-6 xl:mb-12 px-2 xl:px-0">
+            className="max-w-[500px] mx-auto xl:mx-0 mb-6 xl:mb-12 px-2 xl:px-0"
+          >
             10 years ago, I began freelancing as a developer. Since then, I've
             done remote work for agencies, consulted for startups, and
             collaborated on digital products for business and consumer use.
@@ -140,36 +142,45 @@ const About = () => {
           <motion.div
             variants={fadeIn("right", 0.6)}
             initial="hidden"
-            animate="show" 
-            className="hidden md:flex md:max-w-xl xl:max-w-none mx-auto xl:mx-0 mb-8">
+            animate="show"
+            className="hidden md:flex md:max-w-xl xl:max-w-none mx-auto xl:mx-0 mb-8"
+          >
             <div className="flex flex-1 xl:gap-x-6 ">
               {/* experience */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
                   <CountUp start={0} end={2} duration={5} /> +
                 </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">Years of experience</div>
+                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
+                  Years of experience
+                </div>
               </div>
               {/* clients */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
                   <CountUp start={0} end={2} duration={5} /> +
                 </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">Satisfied Clients</div>
+                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
+                  Satisfied Clients
+                </div>
               </div>
               {/* projects */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
                   <CountUp start={0} end={2} duration={5} /> +
                 </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">Completed Projects</div>
+                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
+                  Completed Projects
+                </div>
               </div>
               {/* awards */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
                   <CountUp start={0} end={2} duration={5} /> +
                 </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">Winning Awards</div>
+                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
+                  Winning Awards
+                </div>
               </div>
             </div>
           </motion.div>
@@ -178,8 +189,9 @@ const About = () => {
         <motion.div
           variants={fadeIn("left", 0.4)}
           initial="hidden"
-          animate="show" 
-          className="flex flex-col w-full xl:max-w-[48%] h-[480px]">
+          animate="show"
+          className="flex flex-col w-full xl:max-w-[48%] h-[480px]"
+        >
           <div className="flex gap-x-4 xl:gap-x-8 mx-auto xl:mx-0 mb-4">
             {aboutData.map((item, itemIndex) => (
               <div
@@ -207,7 +219,7 @@ const About = () => {
                   <div className="flex gap-x-4">
                     {/* icons */}
                     {item.icons?.map((icon, itemIndex) => {
-                      return <div className="text-2xl text-white">{icon}</div>;
+                      return <div key={itemIndex} className="text-2xl text-white">{icon}</div>;
                     })}
                   </div>
                 </div>
