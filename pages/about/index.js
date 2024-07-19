@@ -6,16 +6,21 @@ import {
   FaCss3,
   FaJs,
   FaReact,
-  FaWordpress,
+  FaVuejs,
   FaFigma,
-} from "react-icons/fa";
+  FaJava,
+  FaGithub
+} from "react-icons/fa6";
 
 import {
   SiNextdotjs,
-  SiFramer,
   SiAdobexd,
   SiAdobephotoshop,
+  SiKubernetes,
+  SiMongodb
 } from "react-icons/si";
+
+import { GrDocker } from "react-icons/gr";
 
 //  data
 const aboutData = [
@@ -30,26 +35,29 @@ const aboutData = [
           <FaJs />,
           <FaReact />,
           <SiNextdotjs />,
-          <SiFramer />,
-          <FaWordpress />,
+          <FaVuejs />,
+          <SiMongodb />
+        ],
+      },
+      {
+        title: "Development",
+        icons: [
+          <FaJava />,
+          <GrDocker />,<SiKubernetes />,<FaGithub />
         ],
       },
       {
         title: "UI/UX Design",
         icons: [<FaFigma />, <SiAdobexd />, <SiAdobephotoshop />],
-      },
+      }
     ],
   },
   {
     title: "awards",
     info: [
       {
-        title: "Webby Awards - Honoree",
-        stage: "2011 - 2012",
-      },
-      {
-        title: "Adobe Design Achievement Awards - Finalist",
-        stage: "2009 - 2010",
+        title: "TIAA Hackathon - Winner",
+        stage: "2023 - 2024",
       },
     ],
   },
@@ -57,16 +65,12 @@ const aboutData = [
     title: "experience",
     info: [
       {
-        title: "UX/UI Designer - XYZ Company",
-        stage: "2012 - 2023",
+        title: "Software Developer - Nasdaq",
+        stage: "2024 - 2024",
       },
       {
-        title: "Web Developer - ABC Agency",
-        stage: "2010 - 2012",
-      },
-      {
-        title: "Intern - DEF Corporation",
-        stage: "2008 - 2010",
+        title: "Intern - Nasdaq",
+        stage: "2023 - 2024",
       },
     ],
   },
@@ -74,16 +78,12 @@ const aboutData = [
     title: "credentials",
     info: [
       {
-        title: "Web Development - ABC University, LA, CA",
-        stage: "2011",
+        title: "Cloud Specialization - Symbiosis International University, PNQ, MH",
+        stage: "2023-2024",
       },
       {
-        title: "Computer Science Diploma - AV Technical Institute",
-        stage: "2009",
-      },
-      {
-        title: "Certified Graphic Designer - ABC Institute, Los Angeles, CA",
-        stage: "2006",
+        title: "Computer Science And Engineering - Symbiosis Institute of Technology, PNQ, MH",
+        stage: "2020-2024",
       },
     ],
   },
@@ -104,7 +104,7 @@ const About = () => {
   const [index, setIndex] = useState(0);
   console.log(index);
   return (
-    <div className="h-full bg-primary/30 py-32 text-center xl:text-left">
+    <div className="h-full bg-primary/30 py-32 text-center xl:text-left pb-20">
       <Circles />
       {/* avatar img */}
       <motion.div
@@ -217,7 +217,7 @@ const About = () => {
                   <div className="flex gap-x-4">
                     {/* icons */}
                     {item.icons?.map((icon, itemIndex) => {
-                      return <div key={itemIndex} className="text-2xl text-white">{icon}</div>;
+                      return <div key={itemIndex} className="text-4xl text-white">{icon}</div>;
                     })}
                   </div>
                 </div>
