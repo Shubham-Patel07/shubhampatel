@@ -103,6 +103,21 @@ import CountUp from "react-countup";
 
 const About = () => {
   const [index, setIndex] = useState(0);
+  const [mergedPullRequests, setMergedPullRequests] = useState(0);
+
+  useEffect(() => {
+    const fetchMergedPullRequests = async () => {
+      try {
+        console.log('Fetching merged pull requests...');
+        const response = await axios.get('/api/gitPullRequests');
+        setMergedPullRequests(response.data.mergedPullRequestsCount);
+      } catch (error) {
+        console.error('Error fetching merged pull requests:', error);
+      }
+    };
+
+    fetchMergedPullRequests();
+  }, []);
   return (
     <div className="h-full bg-primary/30 py-32 text-center xl:text-left">
       <Circles />
@@ -183,10 +198,10 @@ const About = () => {
               {/* commits */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={0} end={commits} duration={5} /> +
+                  <CountUp start={0} end={mergedPullRequests} duration={5} /> +
                 </div>
                 <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                  Total Commits
+                  Total Pull Requests
                 </div>
               </div>
             </div>
