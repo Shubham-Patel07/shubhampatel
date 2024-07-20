@@ -28,8 +28,7 @@ const Services = () => {
               animate="show"
               exit="hidden"
               className='mb-4 max-w-[400px] mx-auto lg:mx-0'>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A
-              eveniet dignissimos distinctio tempore harum laudantium.
+              Our services elevate brands, enhance digital presence, and provide a one-stop solution for creative needs, all with a focus on fun, helping, and connecting with people.
             </motion.p>
           </div>
           <motion.div
