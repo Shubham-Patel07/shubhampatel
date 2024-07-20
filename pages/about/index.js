@@ -103,42 +103,6 @@ import CountUp from "react-countup";
 
 const About = () => {
   const [index, setIndex] = useState(0);
-  const [commits, setCommits] = useState(0);
-  console.log("APICalling")
-  useEffect(() => {
-    const fetchCommits = async () => {
-      try {
-        const username = 'Shubham-Patel07';
-        const token = process.env.REACT_APP_GITHUB_TOKEN; // Use the token from environment variables
-        console.log("Token:", token);
-        const headers = { Authorization: `token ${token}` };
-
-        const repos = await axios.get(`https://api.github.com/users/${username}/repos`, { headers });
-        let totalCommits = 0;
-
-        for (const repo of repos.data) {
-          if (repo.size > 0) { // Check if the repository is non-empty
-            try {
-              const commitsData = await axios.get(`https://api.github.com/repos/${username}/${repo.name}/commits`, { headers });
-              totalCommits += commitsData.data.length;
-            } catch (error) {
-              if (error.response && error.response.status === 409) {
-                console.warn(`Repository ${repo.name} is empty.`);
-              } else {
-                throw error;
-              }
-            }
-          }
-        }
-        console.log(totalCommits)
-        setCommits(totalCommits);
-      } catch (error) {
-        console.error("Error fetching commit data:", error.message);
-      }
-    };
-
-    fetchCommits();
-  }, []);
   return (
     <div className="h-full bg-primary/30 py-32 text-center xl:text-left">
       <Circles />
