@@ -110,6 +110,7 @@ const About = () => {
       try {
         const username = 'Shubham-Patel07';
         const token = process.env.REACT_APP_GITHUB_TOKEN; // Use the token from environment variables
+        console.log("Token:", token);
         const headers = { Authorization: `token ${token}` };
 
         const repos = await axios.get(`https://api.github.com/users/${username}/repos`, { headers });
