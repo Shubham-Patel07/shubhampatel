@@ -104,6 +104,7 @@ import CountUp from "react-countup";
 const About = () => {
   const [index, setIndex] = useState(0);
   const [mergedPullRequests, setMergedPullRequests] = useState(0);
+  const [commitsCount, setCommitsCount] = useState(0);
 
   useEffect(() => {
     const fetchMergedPullRequests = async () => {
@@ -116,7 +117,17 @@ const About = () => {
       }
     };
 
+    const fetchCommitsCount = async () => {
+      try {
+        const response = await axios.get('/api/gitCommits');
+        setCommitsCount(response.data.totalCommits);
+      } catch (error) {
+        console.error("Error fetching commits count:", error);
+      }
+    };
+
     fetchMergedPullRequests();
+    fetchCommitsCount();
   }, []);
   return (
     <div className="h-full bg-primary/30 py-32 text-center xl:text-left">
@@ -189,7 +200,7 @@ const About = () => {
               {/* awards */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={0} end={2} duration={5} /> +
+                  <CountUp start={0} end={1} duration={5} /> +
                 </div>
                 <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
                   Winning Awards
@@ -202,6 +213,14 @@ const About = () => {
                 </div>
                 <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
                   Total Pull Requests
+                </div>
+              </div>
+              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
+                <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
+                  <CountUp start={0} end={commitsCount} duration={5} /> +
+                </div>
+                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
+                  Total Commits
                 </div>
               </div>
             </div>
