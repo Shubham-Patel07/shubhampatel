@@ -3,18 +3,24 @@ import axios from "axios";
 
 // icons
 import {
+  FaJava,
+  FaDocker,
+  FaJenkins,
+  FaAws,
   FaHtml5,
   FaCss3,
   FaJs,
   FaReact,
-  FaWordpress,
   FaFigma,
 } from "react-icons/fa";
 
 import {
+  SiKubernetes,
+  SiHeroku,
+  SiFlux,
+  SiCypress,
   SiNextdotjs,
-  SiFramer,
-  SiAdobexd,
+  SiMysql,
   SiAdobephotoshop,
 } from "react-icons/si";
 
@@ -24,20 +30,32 @@ const aboutData = [
     title: "skills",
     info: [
       {
+        title: "DevOps",
+        icons: [
+          <FaDocker />,
+          <SiKubernetes />,
+          <FaAws />,
+          <FaJenkins />,
+          <SiHeroku />,
+          <SiFlux />
+        ],
+      },
+      {
         title: "Web Development",
         icons: [
+          <FaJava />,
           <FaHtml5 />,
           <FaCss3 />,
           <FaJs />,
+          <SiMysql />,
           <FaReact />,
           <SiNextdotjs />,
-          <SiFramer />,
-          <FaWordpress />,
+          <SiCypress />
         ],
       },
       {
         title: "UI/UX Design",
-        icons: [<FaFigma />, <SiAdobexd />, <SiAdobephotoshop />],
+        icons: [<FaFigma />, <SiAdobephotoshop />],
       },
     ],
   },
@@ -45,12 +63,8 @@ const aboutData = [
     title: "awards",
     info: [
       {
-        title: "Webby Awards - Honoree",
-        stage: "2011 - 2012",
-      },
-      {
-        title: "Adobe Design Achievement Awards - Finalist",
-        stage: "2009 - 2010",
+        title: "Hackathon Winner - TIAA",
+        stage: "2023 - 2023",
       },
     ],
   },
@@ -58,33 +72,21 @@ const aboutData = [
     title: "experience",
     info: [
       {
-        title: "UX/UI Designer - XYZ Company",
-        stage: "2012 - 2023",
-      },
-      {
-        title: "Web Developer - ABC Agency",
+        title: "Software Engineer Intern - Nasdaq INC. ",
         stage: "2010 - 2012",
-      },
-      {
-        title: "Intern - DEF Corporation",
-        stage: "2008 - 2010",
       },
     ],
   },
   {
-    title: "credentials",
+    title: "Qualifications",
     info: [
       {
-        title: "Web Development - ABC University, LA, CA",
-        stage: "2011",
+        title: "Computer Science and Engineering - Symbiosis Institute Of Technology, PNQ, IN",
+        stage: "2024",
       },
       {
-        title: "Computer Science Diploma - AV Technical Institute",
-        stage: "2009",
-      },
-      {
-        title: "Certified Graphic Designer - ABC Institute, Los Angeles, CA",
-        stage: "2006",
+        title: "Cloud Computing Specialization - Symbiosis International University, PNQ, IN ",
+        stage: "2024",
       },
     ],
   },
@@ -170,24 +172,6 @@ const About = () => {
             className="hidden md:flex md:max-w-xl xl:max-w-none mx-auto xl:mx-0 mb-8"
           >
             <div className="flex flex-1 xl:gap-x-6 ">
-              {/* experience */}
-              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
-                <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={0} end={2} duration={5} /> +
-                </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                  Years of experience
-                </div>
-              </div>
-              {/* clients */}
-              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
-                <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={0} end={2} duration={5} /> +
-                </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                  Satisfied Clients
-                </div>
-              </div>
               {/* projects */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
@@ -254,13 +238,13 @@ const About = () => {
                   className="flex-1 flex flex-col md:flex-row max-w-max gap-x-2 items-center text-white/60"
                 >
                   {/* title */}
-                  <div className="font-light mb-2 md:mb-0">{item.title}</div>
+                  <div className="font-light mb-2 md:mb-0 whitespace-nowrap">{item.title}</div>
                   <div className="hidden md:flex">-</div>
                   <div>{item.stage}</div>
                   <div className="flex gap-x-4">
                     {/* icons */}
                     {item.icons?.map((icon, itemIndex) => {
-                      return <div key={itemIndex} className="text-2xl text-white">{icon}</div>;
+                      return <div key={itemIndex} className="text-3xl text-white">{icon}</div>;
                     })}
                   </div>
                 </div>
