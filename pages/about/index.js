@@ -37,7 +37,7 @@ const aboutData = [
           <FaAws />,
           <FaJenkins />,
           <SiHeroku />,
-          <SiFlux />
+          <SiFlux />,
         ],
       },
       {
@@ -50,7 +50,7 @@ const aboutData = [
           <SiMysql />,
           <FaReact />,
           <SiNextdotjs />,
-          <SiCypress />
+          <SiCypress />,
         ],
       },
       {
@@ -81,11 +81,13 @@ const aboutData = [
     title: "Qualifications",
     info: [
       {
-        title: "Computer Science and Engineering - Symbiosis Institute Of Technology, PNQ, IN",
+        title:
+          "Computer Science and Engineering - Symbiosis Institute Of Technology, PNQ, IN",
         stage: "2024",
       },
       {
-        title: "Cloud Computing Specialization - Symbiosis International University, PNQ, IN ",
+        title:
+          "Cloud Computing Specialization - Symbiosis International University, PNQ, IN ",
         stage: "2024",
       },
     ],
@@ -107,24 +109,28 @@ const About = () => {
   const [index, setIndex] = useState(0);
   const [mergedPullRequests, setMergedPullRequests] = useState(0);
   const [commitsCount, setCommitsCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMergedPullRequests = async () => {
       try {
-        console.log('Fetching merged pull requests...');
-        const response = await axios.get('/api/gitPullRequests');
+        console.log("Fetching merged pull requests...");
+        const response = await axios.get("/api/gitPullRequests");
         setMergedPullRequests(response.data.mergedPullRequestsCount);
       } catch (error) {
-        console.error('Error fetching merged pull requests:', error);
+        console.error("Error fetching merged pull requests:", error);
       }
     };
 
     const fetchCommitsCount = async () => {
       try {
-        const response = await axios.get('/api/gitCommits');
+        setLoading(true);
+        const response = await axios.get("/api/gitCommits");
         setCommitsCount(response.data.totalCommits);
       } catch (error) {
         console.error("Error fetching commits count:", error);
+      } finally {
+        setLoading(false); // Set loading to false after the request is complete
       }
     };
 
@@ -162,7 +168,12 @@ const About = () => {
             animate="show"
             className="max-w-[500px] mx-auto xl:mx-0 mb-6 xl:mb-12 px-2 xl:px-0"
           >
-            I am a freelance developer, currently looking for opportunities to expand my experience. I am open to working remotely with agencies, providing consultation services for startups, and collaborating on the development of digital products for both business and consumer markets. My goal is to bring innovative solutions and a fresh perspective to every project I undertake.
+            I am a freelance developer, currently looking for opportunities to
+            expand my experience. I am open to working remotely with agencies,
+            providing consultation services for startups, and collaborating on
+            the development of digital products for both business and consumer
+            markets. My goal is to bring innovative solutions and a fresh
+            perspective to every project I undertake.
           </motion.p>
           {/* counters */}
           <motion.div
@@ -199,10 +210,19 @@ const About = () => {
                   Total Pull Requests
                 </div>
               </div>
+              {/* commits */}
               <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
-                <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={0} end={commitsCount} duration={5} /> +
-                </div>
+                {loading ? (
+                  <div className="loading-indicatortext-2xl xl:text-4xl font-extrabold text-accent mb-2 ">
+                    <span className="dot">.</span>
+                    <span className="dot">.</span>
+                    <span className="dot">.</span>
+                  </div>
+                ) : (
+                  <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
+                    <CountUp start={0} end={commitsCount} duration={5} /> +
+                  </div>
+                )}
                 <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
                   Total Commits
                 </div>
@@ -244,7 +264,11 @@ const About = () => {
                   <div className="flex gap-x-4">
                     {/* icons */}
                     {item.icons?.map((icon, itemIndex) => {
-                      return <div key={itemIndex} className="text-3xl text-white">{icon}</div>;
+                      return (
+                        <div key={itemIndex} className="text-3xl text-white">
+                          {icon}
+                        </div>
+                      );
                     })}
                   </div>
                 </div>

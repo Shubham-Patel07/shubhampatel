@@ -6,13 +6,6 @@ dotenv.config();
 const GITHUB_USERNAME = "Shubham-Patel07"; // Replace with your GitHub username
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-// In-memory cache
-let cache = {
-  totalCommits: 0,
-  lastFetch: 0,
-};
-const CACHE_DURATION = 5 * 24 * 60 * 60 * 1000; // Cache duration in milliseconds (e.g., 5 days)
-
 const fetchTotalCommits = async (username, author) => {
   const headers = {
     Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -71,21 +64,8 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     console.log('Received GET request...');
     
-    const now = Date.now();
-    if (cache.lastFetch && (now - cache.lastFetch < CACHE_DURATION)) {
-      console.log('Returning cached result');
-      res.status(200).json({ totalCommits: cache.totalCommits });
-      return;
-    }
-    
     const totalCommits = await fetchTotalCommits(GITHUB_USERNAME, GITHUB_USERNAME);
     console.log('Total commits count:', totalCommits);
-    
-    // Update cache
-    cache = {
-      totalCommits,
-      lastFetch: Date.now(),
-    };
     
     res.status(200).json({ totalCommits });
   } else {
