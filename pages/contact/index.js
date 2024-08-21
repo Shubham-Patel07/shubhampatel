@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 //components
 import Circles from '../../components/Circles';
 
@@ -11,6 +13,36 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
 const Contact = () => {
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, seterror] = useState([]);
+  const handelSubmit = async(e) => {
+    e.preventDefault();
+
+    console.log("Fullname:", fullname);
+    console.log("Email:", email);
+    console.log("Subject:", subject);
+    console.log("Message:", message);
+
+    const res = await fetch("../api/contactService.js", {
+      method: "POST",
+      headers: {
+        "Content-type" : "application/json",
+      },
+      body: JSON.stringify({
+        fullname,
+        email,
+        subject,
+        message
+      })
+    });
+    const {msg} = await res.json();
+    setError(msg);
+    console.log(error);
+  }
+
   return (
     <div className='h-full bg-primary/30'>
       <div className='container mx-auto py-32 text-center xl:text-left flex items-center justify-center h-full'>
@@ -28,6 +60,7 @@ const Contact = () => {
           </motion.h2>
           {/* form */}
           <motion.form
+            onSubmit={handelSubmit}
             variants={fadeIn('up', 0.4)}
             initial='hidden'
             animate='show'
@@ -36,11 +69,30 @@ const Contact = () => {
           >
             {/* input group */}
             <div className='flex gap-x-6 w-full'>
-              <input type='text' placeholder='name' className='input' />
-              <input type='text' placeholder='email' className='input' />
+              <input 
+              onChange={(e) => setFullName(e.target.value)}
+              value={fullname} 
+              type='text' 
+              placeholder='name' 
+              className='input' />
+              <input
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              type='text' 
+              placeholder='email' 
+              className='input' />
             </div>
-            <input type='text' placeholder='subject' className='input' />
-            <textarea placeholder='message' className='textarea'></textarea>
+            <input 
+            onChange={(e) => setSubject(e.target.value)}
+            value={subject}
+            type='text' 
+            placeholder='subject' 
+            className='input' />
+            <textarea
+            onChange={(e) => setMessage(e.target.value)}
+            value={message}
+            placeholder='message' 
+            className='textarea'></textarea>
             <button className='btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden hover:border-accent group'>
               <span className='group-hover:-translate-y-[120%] group-hover:opacity-0 transition-all duration-500'>
                 Let's talk
