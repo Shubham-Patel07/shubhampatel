@@ -19,8 +19,11 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState([]);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const handelSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
 
     console.log("Fullname:", fullname);
     console.log("Email:", email);
@@ -48,6 +51,7 @@ const Contact = () => {
       const { msg, success } = data;
       setError(msg);
       setSuccess(success);
+      setLoading(false);
 
       if (success) {
         setFullName("");
@@ -58,6 +62,7 @@ const Contact = () => {
     } catch (error) {
       console.error("Failed to parse JSON:", error);
       setError(["Failed to parse response from server."]);
+      setLoading(false);
     }
   };
 
@@ -115,28 +120,46 @@ const Contact = () => {
               placeholder="message"
               className="textarea"
             ></textarea>
-            <button className="btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden hover:border-accent group">
-              <span className="group-hover:-translate-y-[120%] group-hover:opacity-0 transition-all duration-500">
-                Let's talk
-              </span>
-              <BsArrowRight className="-translate-y-[120%] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 absolute text-[22px]" />
+            <button
+              className="btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden hover:border-accent group"
+              disabled={loading} // Disable button while loading
+            >
+              {loading ? (
+                <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-6 w-6"></div> // Loader (spinner)
+              ) : (
+                <>
+                  <span className="group-hover:-translate-y-[120%] group-hover:opacity-0 transition-all duration-500">
+                    Let's talk
+                  </span>
+                  <BsArrowRight className="-translate-y-[120%] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 absolute text-[22px]" />
+                </>
+              )}
             </button>
             {/* error message */}
-            {error.length > 0 && (
-              <div className="relative w-full px-5 py-2 border border-accent bg-accent/10 opacity-60 hover:opacity-90">
+            {(error.length > 0 || success) && (
+              <div
+                className={`relative w-full px-5 py-2 border ${
+                  success
+                    ? "border-green-500 bg-green-10 text-green-700"
+                    : "border-accent bg-accent/10 text-accent"
+                } opacity-60 hover:opacity-90`}
+              >
                 {/* Close button */}
                 <button
-                  onClick={() => setError([])}
-                  className="absolute top-2 right-5 text-accent text-xl leading-none hover:text-white transition-colors duration-200"
+                  onClick={() => {
+                    setError([]);
+                    setSuccess(false);
+                  }}
+                  className="absolute top-1 right-1 text-xl leading-none hover:text-red-500 transition-colors duration-200"
                 >
                   &times;
                 </button>
-                {/* Error messages */}
-                {error.map((e, index) => (
-                  <div key={index} className="text-accent">
-                    {e}
-                  </div>
-                ))}
+                {/* Success or Error messages */}
+                {success ? (
+                  <div>Message sent successfully!</div>
+                ) : (
+                  error.map((e, index) => <div key={index}>{e}</div>)
+                )}
               </div>
             )}
           </motion.form>
