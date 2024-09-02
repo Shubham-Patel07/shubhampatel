@@ -1,41 +1,70 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
-export default function MultiLayerParallax() {
+const MultiLayerParallax = () => {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
+  const animationFrameRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const updateProgress = () => {
+          const progress = 1 - entry.intersectionRatio;
+          ref.current.style.setProperty("--scroll-progress", progress);
+          animationFrameRef.current = null; // Clear the animation frame reference
+        };
+
+        if (!animationFrameRef.current) {
+          animationFrameRef.current = requestAnimationFrame(updateProgress);
+        }
+      },
+      { threshold: Array.from({ length: 101 }, (_, i) => i / 100) }
+    );
+
+    observer.observe(ref.current);
+    return () => {
+      observer.disconnect();
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
       ref={ref}
       className="w-full h-screen overflow-hidden relative grid place-items-center"
+      style={{
+        "--scroll-progress": 1,
+      }}
     >
-      <motion.h1
-        style={{ y: textY }}
+      <h1
+        style={{
+          transform: `translateY(calc(var(--scroll-progress) * 350%))`,
+        }}
         className="font-bold text-white text-7xl md:text-9xl relative z-10"
       >
         PARALLAX
-      </motion.h1>
-
-      <motion.div
-        className="absolute inset-0 z-0 bg-bottom bg-cover"
+      </h1>
+      <div
+        className="absolute inset-0 z-0 mix-blend-color-dodge"
         style={{
           backgroundImage: `url(/image-full.png)`,
-          y: backgroundY,
+          backgroundPosition: "bottom",
+          backgroundSize: "cover",
+          transform: `translateY(calc(var(--scroll-progress) * 50%))`
+
         }}
       />
-      
       <div
-        className="absolute inset-0 z-20 bg-bottom bg-cover"
+        className="absolute inset-0 z-20"
         style={{
           backgroundImage: `url(/image-bottom.png)`,
+          backgroundPosition: "bottom",
+          backgroundSize: "cover",
         }}
       />
     </div>
   );
-}
+};
+
+export default MultiLayerParallax;
